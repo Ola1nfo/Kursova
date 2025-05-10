@@ -140,15 +140,33 @@ function showInfoWeather(data){
 async function fetchCurrencyData(currencyCode) {
     const currencyURL = `https://v6.exchangerate-api.com/v6/${API_CURRENCY}/latest/USD`
     
-        try {
-            const response = await fetch(currencyURL)
-            const currency = await response.json()
-            console.log(currency);
-            
-        } catch (error) {
-            console.error(error);
-        }
+    try {
+        const response = await fetch(currencyURL)
+        const currency = await response.json()
+        console.log(currency);
+        showInfoCurrency(currency,currencyCode)
+    } catch (error) {
+        console.error(error);
     }
+}
+
+function showInfoCurrency(data, currencyCode) {
+    const countryList = document.getElementById('countryList');
+    const rates = data.conversion_rates;
+
+    const rateToLocal = rates[currencyCode];
+    const rateToUSD = 1 / rateToLocal;
+
+    const currencyElement = `
+        <li>
+            Валюта: ${currencyCode}<br>
+            1 USD = ${rateToLocal.toFixed(2)} ${currencyCode}<br>
+            1 ${currencyCode} = ${rateToUSD.toFixed(2)} USD
+        </li>
+    `;
+
+    countryList.innerHTML += currencyElement;
+}
 
 async function fetchCountryPhoto(countryName) {
     const url = `https://api.pexels.com/v1/search?query=${countryName}&per_page=3`;
@@ -172,3 +190,4 @@ async function fetchCountryPhoto(countryName) {
         console.error(error);
     }
 }
+
