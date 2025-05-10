@@ -7,7 +7,18 @@
     <link rel="stylesheet" href="./style/style.css">
 </head>
 <body>
-    <header class="container">
+    <div id="infoBanner" class="info-banner">
+    <div class="info-content">
+        <h2>Привіт! Я твій помічник для подорожей</h2>
+        <p>Готовий вирушити в подорож? Введи у пошук країну, яку хочеш відвідати, дізнайся потрібну інформацію та плануй свою наступну подорож!</p>
+        <div id="buttons">
+            <button onclick="showCountryContainer()">Дізнатися про країни</button>
+            <button onclick="window.location.href='/wishlist';">Мій список подорожей</button>
+        </div>
+    </div>
+</div>
+
+    <div class="container" id="container">
         <div class="row">
             <div class="col-6">
                 <input type="text" class="form-control" aria-label="Text input with radio button">
@@ -16,9 +27,7 @@
                 <button id="search" type="button" class="btn">OK</button>
             </div>
         </div>
-    </header>
-
-    <button id="addToTravelList">Хочу відвідати</button>
+    </div>
 
     <ul id="countryList">
 

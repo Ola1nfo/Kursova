@@ -1,3 +1,11 @@
+function showCountryContainer() {
+    const banner = document.getElementById('infoBanner');
+    banner.style.display = 'none';
+
+    const countryContainer = document.getElementById('container');
+    countryContainer.style.display = 'block';
+}
+
 const search = document.getElementById('search')
 
 const API_WEATHER = '418b95f1f028afc1a3c10087c1d8db0d'
