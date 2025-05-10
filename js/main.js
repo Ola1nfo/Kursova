@@ -5,9 +5,17 @@ const API_CURRENCY = '89abaa6266aaec8a5fee6ea5'
 const PEXELS_API = 'vNAXdG3jksl9MDt7vGQTNYw4PYQdeDaIx9QXAni2bV1WD6U4qncJvkpA';
 
 search.addEventListener('click', () => {
-    const url = generateURL()
-    fetchCountryData(url)
-})
+    const input = document.querySelector('input').value.trim();
+    if (!input) {
+        const messageContainer = document.getElementById('countryList');
+        messageContainer.innerHTML = `<p class='countryNone' style='display:block'>!!!Будь ласка, введіть назву країни!!!</p>`;
+        return;
+    }
+    const url = generateURL(input);
+    fetchCountryData(url);
+});
+
+
 
 function generateURL() {
     const countryName = document.querySelector('input').value.trim()
@@ -29,12 +37,46 @@ async function fetchCountryData(url) {
         if (currencyCode) {
             fetchCurrencyData(currencyCode);
         }
+        showInfoCountry(data)
         fetchCountryPhoto(countryName)
         console.log(data);
         
         
     } catch (error) {
         console.error(error);
+    }
+}
+
+function showInfoCountry(data){
+    const{name, capital, region, languages, population, flags, maps} = data[0]
+    const{common} = name
+    const langList = Object.values(languages).join(', ')
+    const{png} = flags
+    const{googleMaps} = maps
+    
+    const countryList = document.getElementById('countryList')
+    countryList.innerHTML = ''
+
+
+    const elements = `
+    <li>Назва країни: ${common}</li>
+    <li>Столиця: ${capital}</li>
+    <li>Регіон: ${region}</li>
+    <li>Мова: ${langList}</li>
+    <li>Населення: ${formatPopulation(population)}</li>
+    <li>Прапор:<br><img class="flag" src='${png}'></li>
+    <li>Геолокація: <a href="${googleMaps}">Відкрити на мапі</a></li>
+    `
+    countryList.innerHTML = elements
+}
+
+function formatPopulation(population) {
+    if (population >= 1_000_000) {
+        return (population / 1_000_000).toFixed(1) + ' млн осіб';
+    } else if (population >= 1_000) {
+        return (population / 1_000).toFixed(1) + ' тис. осіб';
+    } else {
+        return population + ' осіб';
     }
 }
 
@@ -45,10 +87,54 @@ const weatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${capital}
         const response = await fetch(weatherURL)
         const weather = await response.json()
         console.log(weather);
+        showInfoWeather(weather)
         
     } catch (error) {
         console.error(error);
     }
+}
+
+function getMyIcon(icon) {
+    const icons = {
+        '01d': 'sun.gif',
+        '02d': 'cloud.gif',
+        '03d': 'cloudy.gif',
+        '04d': 'clouds.gif',
+        '10d': 'rain.gif',
+        '09d': 'showerRain.gif',
+        '11d': 'thunderstorm.gif',
+        '13d': 'snow.gif',
+        '50d': 'mist.gif',
+        '01n': 'moon.gif',
+        '02n': 'cloudN.gif',
+        '03n': 'cloudy.gif',
+        '04n': 'clouds.gif',
+        '10n': 'rain.gif',
+        '09n': 'showerRain.gif',
+        '11n': 'thunderstorm.gif',
+        '13n': 'snow.gif',
+        '50n': 'mist.gif',
+    }
+    const chooseIcon = icon.toLowerCase()
+    for(let key in icons){
+        if (chooseIcon.includes(key)){
+            return `./img/${icons[key]}`
+        }
+    }
+}
+
+function showInfoWeather(data){
+    const{main, weather} = data
+    const{temp} = main
+    const{description, icon} = weather[0]
+    const img = getMyIcon(icon)  
+    
+    const countryList = document.getElementById('countryList')
+
+    const weatherElement  = `
+    <li>Погода: ${temp}°C, ${description}, <img class="iconWeather" src='${img}' alt="Погода"></li>
+    `
+    countryList.innerHTML += weatherElement 
 }
 
 async function fetchCurrencyData(currencyCode) {

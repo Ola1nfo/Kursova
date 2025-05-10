@@ -20,3 +20,18 @@
     transform: scale(1.05);
     box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
 }
+
+.flag{
+    border: 1px solid black;
+}
+
+.iconWeather{
+    margin: -20px -10px;
+    padding-top: 10px;
+    width: 80px;
+}
+
+.countryNone{
+    color: red;
+    display: none;
+}
