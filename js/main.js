@@ -13,12 +13,15 @@ const API_CURRENCY = '89abaa6266aaec8a5fee6ea5'
 const PEXELS_API = 'vNAXdG3jksl9MDt7vGQTNYw4PYQdeDaIx9QXAni2bV1WD6U4qncJvkpA';
 
 search.addEventListener('click', () => {
+    document.getElementById('photos').innerHTML = '';
     const input = document.querySelector('input').value.trim();
     if (!input) {
         const messageContainer = document.getElementById('countryList');
         messageContainer.innerHTML = `<p class='countryNone' style='display:block'>!!!Будь ласка, введіть назву країни!!!</p>`;
+        const likeButton = document.getElementById('likeButton');        likeButton.style.display = 'none';
         return;
     }
+
     const url = generateURL(input);
     fetchCountryData(url);
 });
@@ -28,7 +31,48 @@ function generateURL() {
     return `https://restcountries.com/v3.1/name/${countryName}`
 }
 
+let countryNames = [];
+
+async function loadCountryNames() {
+    try {
+        const res = await fetch('https://restcountries.com/v3.1/all');
+        const data = await res.json();
+        countryNames = data.map(country => country.name.common).sort();
+    } catch (error) {
+        console.error('Помилка при завантаженні країн:', error);
+    }
+}
+loadCountryNames();
+
+const input = document.getElementById('countryInput');
+const suggestions = document.getElementById('suggestions');
+
+input.addEventListener('input', () => {
+    const query = input.value.toLowerCase();
+    suggestions.innerHTML = '';
+
+    if (query.length === 0) return;
+
+    const matched = countryNames.filter(name => name.toLowerCase().startsWith(query)).slice(0, 5);
+    
+    matched.forEach(name => {
+        const li = document.createElement('li');
+        li.textContent = name;
+        li.addEventListener('click', () => {
+            input.value = name;
+            suggestions.innerHTML = '';
+            document.getElementById('photos').innerHTML = '';
+            const url = generateURL(name);
+            fetchCountryData(url);
+        });
+        suggestions.appendChild(li);
+    });
+});
+
+
 async function fetchCountryData(url) {
+    document.getElementById('countryList').innerHTML = '<li>Завантаження даних...</li>';
+
     try {
         const response = await fetch(url)
         const data = await response.json()
@@ -43,6 +87,11 @@ async function fetchCountryData(url) {
         if (currencyCode) {
             fetchCurrencyData(currencyCode);
         }
+        if (data.status === 404 || data.length === 0) {
+            countryList.innerHTML = `<p class='countryNone'>❌ Країну не знайдено. Спробуйте ще раз.</p>`;
+            return;
+        }
+
         showInfoCountry(data)
         fetchCountryPhoto(countryName)
         showLikeButton()
