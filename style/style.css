@@ -74,5 +74,9 @@
 }
 
 .info-content button:hover {
-    background-color: #0056b3; /* Змінюється колір на темніший при наведенні */
+    background-color: #0056b3;
+}
+
+#likeButton{
+    display: none;
 }

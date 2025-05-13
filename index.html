@@ -13,7 +13,7 @@
         <p>Готовий вирушити в подорож? Введи у пошук країну, яку хочеш відвідати, дізнайся потрібну інформацію та плануй свою наступну подорож!</p>
         <div id="buttons">
             <button onclick="showCountryContainer()">Дізнатися про країни</button>
-            <button onclick="window.location.href='/wishlist';">Мій список подорожей</button>
+            <button onclick="window.location.href='./pages/liked-country.html';">Мій список подорожей</button>
         </div>
     </div>
 </div>
@@ -29,10 +29,14 @@
         </div>
     </div>
 
+    <button><a href="./pages/liked-country.html">Мій список подорожей</a></button>
+
     <ul id="countryList">
 
     </ul>
     <div id="photos"></div>
+    <button id="likeButton">Хочу відвідати</button>
+
 
     
     <script src="./js/main.js"></script>

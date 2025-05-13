@@ -23,8 +23,6 @@ search.addEventListener('click', () => {
     fetchCountryData(url);
 });
 
-
-
 function generateURL() {
     const countryName = document.querySelector('input').value.trim()
     return `https://restcountries.com/v3.1/name/${countryName}`
@@ -47,6 +45,7 @@ async function fetchCountryData(url) {
         }
         showInfoCountry(data)
         fetchCountryPhoto(countryName)
+        showLikeButton()
         console.log(data);
         
         
@@ -67,13 +66,13 @@ function showInfoCountry(data){
 
 
     const elements = `
-    <li>Назва країни: ${common}</li>
-    <li>Столиця: ${capital}</li>
-    <li>Регіон: ${region}</li>
-    <li>Мова: ${langList}</li>
-    <li>Населення: ${formatPopulation(population)}</li>
-    <li>Прапор:<br><img class="flag" src='${png}'></li>
-    <li>Геолокація: <a href="${googleMaps}">Відкрити на мапі</a></li>
+    <li id="name">Назва країни: ${common}</li>
+    <li id="capital">Столиця: ${capital}</li>
+    <li id="region">Регіон: ${region}</li>
+    <li id="languages">Мова: ${langList}</li>
+    <li id="population">Населення: ${formatPopulation(population)}</li>
+    <li id="flag">Прапор:<br><img class="flag" src='${png}'></li>
+    <li id="map">Геолокація: <a href="${googleMaps}">Відкрити на мапі</a></li>
     `
     countryList.innerHTML = elements
 }
@@ -140,7 +139,7 @@ function showInfoWeather(data){
     const countryList = document.getElementById('countryList')
 
     const weatherElement  = `
-    <li>Погода: ${temp}°C, ${description}, <img class="iconWeather" src='${img}' alt="Погода"></li>
+    <li id="weather">Погода: ${temp}°C, ${description}, <img class="iconWeather" src='${img}' alt="Погода"></li>
     `
     countryList.innerHTML += weatherElement 
 }
@@ -166,7 +165,7 @@ function showInfoCurrency(data, currencyCode) {
     const rateToUSD = 1 / rateToLocal;
 
     const currencyElement = `
-        <li>
+        <li id="currency">
             Валюта: ${currencyCode}<br>
             1 USD = ${rateToLocal.toFixed(2)} ${currencyCode}<br>
             1 ${currencyCode} = ${rateToUSD.toFixed(2)} USD
@@ -199,3 +198,30 @@ async function fetchCountryPhoto(countryName) {
     }
 }
 
+function showLikeButton() {
+    const likeButton = document.getElementById('likeButton');
+    likeButton.style.display = 'block';
+
+    likeButton.onclick = () => {
+        const countryData = {
+            name: document.getElementById('name')?.textContent || '',
+            capital: document.getElementById('capital')?.textContent || '',
+            region: document.getElementById('region')?.textContent || '',
+            languages: document.getElementById('languages')?.textContent || '',
+            population: document.getElementById('population')?.textContent || '',
+            flag: document.querySelector('#flag img')?.src || '',
+            weather: document.getElementById('weather')?.textContent || '',
+            currency: document.getElementById('currency')?.innerHTML || '',
+            map: document.getElementById('map')?.innerHTML || ''
+        };
+
+        let likedCountries = JSON.parse(localStorage.getItem('likedCountries')) || [];
+
+        if (!likedCountries.some(c => c.name === countryData.name)) {
+            likedCountries.push(countryData);
+            localStorage.setItem('likedCountries', JSON.stringify(likedCountries));
+        } else {
+            alert(`${countryData.name} вже є у списку улюблених.`);
+        }
+    };
+}
