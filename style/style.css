@@ -3,10 +3,6 @@
     src: url(../font/Tagesschrift-Regular.ttf);
 }
 
-#likeButton {
-    display: none;
-}
-
 body {
     font-family: Header;
     background-color: #f3e6df; 
@@ -59,8 +55,8 @@ body {
 
 #likedCountBadge{
     position: absolute;
-    top: 70px;
-    right: 110px;
+    top: -15px;
+    right: -15px;
     background-color: #a16c4a;
 }
 
@@ -207,7 +203,7 @@ li{
     display: flex;
     justify-content: center;
     align-items: center;  
-    margin-top: 20px;
+    margin: 40px;
 }
 
 .btnMap a{
@@ -242,4 +238,50 @@ li{
     100% {
         transform: scale(1.1); 
     }
+}
+
+#photos {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 20px auto;
+    padding: 10px;
+}
+
+#photos img {
+    width: 500px;
+    padding: 10px;
+    height: auto;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+
+#photos img:hover {
+    transform: scale(1.05);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
+}
+
+#likeButton {
+    display: none;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    font-size: 30px;
+    text-align: center;
+    border-radius: 10px;
+    color: #000;
+    text-decoration: none;
+    font-family: Header;
+    margin: 5px;
+    background-color: rgba(222, 163, 80, 0.4);
+    transition: all 0.3s ease-in-out;
+    margin: 20px auto;
+}
+
+#likeButton:hover {
+    background-color: #925e40;
+    color: #fff;
+    border-radius: 10px;
+    transform: scale(1.1);
 }

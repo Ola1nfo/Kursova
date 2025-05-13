@@ -286,6 +286,23 @@ async function fetchCountryPhoto(countryName) {
     }
 }
 
+function clearCountryInfo() {
+    document.getElementById('name').textContent = '';
+    document.getElementById('capital').textContent = '';
+    document.getElementById('region').textContent = '';
+    document.getElementById('languages').textContent = '';
+    document.getElementById('population').textContent = '';
+    document.getElementById('flag').innerHTML = '';
+    document.getElementById('weather').textContent = '';
+    const icon = document.querySelector('.iconWeather');
+    if (icon) icon.remove();
+    document.getElementById('currency').innerHTML = '';
+    document.getElementById('map').innerHTML = '';
+    document.getElementById('photos').innerHTML = '';
+    document.getElementById('likeButton').style.display = 'none';
+}
+
+
 function showLikeButton() {
     const likeButton = document.getElementById('likeButton');
     likeButton.style.display = 'block';
@@ -318,6 +335,7 @@ function showLikeButton() {
                 badge.textContent = likedCountries.length;
                 badge.style.display = 'inline-block';
             }
+            clearCountryInfo();
         } else {
             alert(`${countryData.name} вже є у списку улюблених.`);
         }
