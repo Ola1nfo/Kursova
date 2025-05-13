@@ -85,7 +85,6 @@
     list-style: none;
     padding: 0;
     margin: 0;
-    border: 1px solid #ccc;
     max-height: 150px;
     overflow-y: auto;
     position: absolute;
@@ -103,3 +102,4 @@
 .suggestions-list li:hover {
     background-color: #f0f0f0;
 }
+

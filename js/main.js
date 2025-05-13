@@ -4,7 +4,25 @@ function showCountryContainer() {
 
     const countryContainer = document.getElementById('container');
     countryContainer.style.display = 'block';
+
+    localStorage.setItem('bannerShown', 'true');
 }
+
+document.addEventListener('DOMContentLoaded', () => {
+    const banner = document.getElementById('infoBanner');
+    const countryContainer = document.getElementById('container');
+
+    const bannerAlreadyShown = localStorage.getItem('bannerShown');
+
+    if (bannerAlreadyShown) {
+        banner.style.display = 'none';
+        countryContainer.style.display = 'block';
+    } else {
+        banner.style.display = 'block';
+        countryContainer.style.display = 'none';
+    }
+});
+
 
 const search = document.getElementById('search')
 
@@ -224,6 +242,8 @@ function showInfoCurrency(data, currencyCode) {
     countryList.innerHTML += currencyElement;
 }
 
+let lastCountryPhotos = []
+
 async function fetchCountryPhoto(countryName) {
     const url = `https://api.pexels.com/v1/search?query=${countryName}&per_page=3`;
 
@@ -234,12 +254,13 @@ async function fetchCountryPhoto(countryName) {
             }
         });
         const data = await response.json();
+        lastCountryPhotos = data.photos.map(photo => photo.src.landscape);
         const photosDiv = document.getElementById('photos');
         photosDiv.innerHTML = ''
         
-        data.photos.forEach(photo => {
+        lastCountryPhotos.forEach(src => {
             const img = document.createElement('img');
-            img.src = photo.src.landscape;
+            img.src = src;
             photosDiv.appendChild(img);
         });
     } catch (error) {
@@ -260,8 +281,12 @@ function showLikeButton() {
             population: document.getElementById('population')?.textContent || '',
             flag: document.querySelector('#flag img')?.src || '',
             weather: document.getElementById('weather')?.textContent || '',
+            weathericon: {
+                iconSrc: document.querySelector('.iconWeather')?.src || ''
+            },
             currency: document.getElementById('currency')?.innerHTML || '',
-            map: document.getElementById('map')?.innerHTML || ''
+            map: document.getElementById('map')?.innerHTML || '',
+            photos: lastCountryPhotos || []
         };
 
         let likedCountries = JSON.parse(localStorage.getItem('likedCountries')) || [];
