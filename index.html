@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Info по країні</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" href="./style/style.css">
 </head>
 <body>
@@ -19,20 +20,38 @@
 </div>
 
     <div class="container" id="container">
-        <div class="row">
-            <div class="col-6">
-                <div style="position: relative;">
-                    <input type="text" id="countryInput" placeholder="Введіть назву країни">
-                    <ul id="suggestions" class="suggestions-list"></ul>
-                </div>
-            </div>
-            <div class="col-6">
-                <button id="search" type="button" class="btn">OK</button>
+    <div class="row justify-content-center mt-5">
+        <div class="col-12 col-md-4">
+            <div class="position-relative">
+                <input 
+                    type="text" 
+                    id="countryInput" 
+                    placeholder="Введіть назву країни" 
+                    class="form-control shadow-sm rounded-pill py-3 px-4" 
+                />
+                <ul id="suggestions" class="suggestions-list list-unstyled position-absolute w-100 mt-1 bg-white shadow rounded">
+                    
+                </ul>
             </div>
         </div>
-    </div>
 
-    <button><a href="./pages/liked-country.html">Мій список подорожей</a></button>
+        <div class="col-12 col-md-4 mt-3 mt-md-0">
+            <button id="search" type="button" class="btn btn-primary w-100 shadow-lg rounded-pill py-3">
+                <strong>OK</strong>
+            </button>
+        </div>
+
+        <div class="col-12 mt-3">
+            <button type="button" class="btn btn-outline-primary position-relative w-100 py-3">
+                <a href="./pages/liked-country.html" class="text-decoration-none text-primary fw-bold">
+                    Мій список подорожей
+                </a>
+                <span id="likedCountBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
+                </span>
+            </button>
+        </div>
+    </div>
+</div>
 
     <ul id="countryList">
 
@@ -41,7 +60,8 @@
     <button id="likeButton">Хочу відвідати</button>
 
 
-    
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
     <script src="./js/main.js"></script>
 </body>
 </html>

@@ -1,5 +1,214 @@
+@font-face {
+    font-family: Header;
+    src: url(../font/Tagesschrift-Regular.ttf);
+}
+
+body{
+    width: 100%;
+    margin: 0 auto;
+    position: relative; 
+    background-image: url(../img/bg.jpg);
+    background-position: calc();
+    background-repeat: no-repeat;
+    background-size: cover;
+    color: #fff;
+}
+
+.container {
+    width: 900px;
+    padding: 10px;
+}
+
+.container::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+* {
+    position: relative; 
+    z-index: 2; 
+}
+
 .iconWeather{
-    margin: -20px -10px;
     padding-top: 10px;
-    width: 80px;
+    width: 200px;
+    display: block;
+    margin: 0 auto;
+}
+
+li{
+    list-style-type: none;
+}
+
+.header {
+    text-align: center;
+    font-size: 50px;
+    font-family: Header;
+    font-weight: bold;
+}
+
+.title{
+    text-align: center;
+    font-size: 35px;
+    font-family: Header;
+}
+
+.flag{
+    width: 400px;
+    display: block;
+    margin: 0 auto;
+    border-radius: 20px;
+    border: 1px solid #ccc;
+}
+
+.text{
+    font-size: 25px;
+    font-family: Header;
+    line-height: 20px;
+}
+
+.weather{
+    width: 400px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgba(219, 219, 219, 0.4);
+    border-radius: 20px;
+    transition: transform 0.3s ease;
+    padding: 10px;
+}
+
+.weather:hover{
+    transform: scale(1.1);
+}
+
+.textCurrency{
+    font-size: 25px;
+    font-family: Header;
+}
+
+.btnMap{
+    display: flex;
+    justify-content: center;
+    align-items: center;  
+}
+
+.btnMap a{
+    border: 1px solid #ccc;
+    padding: 20px 30px;
+    font-size: 25px;
+    text-align: center;
+    margin: 0 auto;
+    border-radius: 10px;
+    color: #fff;
+    text-decoration: none;
+    margin: 0 auto;
+    font-family: Header;
+    animation: bounce 0.5s infinite;
+}
+
+.btnMap a:hover{
+    background-color: rgba(219, 219, 219, 0.4);
+    color: black;
+    border-radius: 10px;
+    transform: scale(1.05);
+    animation: none;
+}
+
+@keyframes bounce {
+    0% {
+        transform: scale(1.1);
+    }
+    50% {
+        transform: scale(1.15); 
+    }
+    100% {
+        transform: scale(1.1); 
+    }
+}
+
+.carousel{
+    margin-right: 30px;
+}
+
+hr{
+    margin-bottom: 20px;
+}
+
+.delete-btn {
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    font-size: 20px;
+    text-align: center;
+    border-radius: 10px;
+    color: #fff;
+    text-decoration: none;
+    font-family: Header;
+    background-color: rgba(219, 219, 219, 0.4);
+    display: block; 
+    margin: 20px auto; 
+    transition: all 0.3s ease-in-out; 
+}
+
+.delete-btn:hover {
+    background-color: #fc9f9f;
+    color: black;
+    border-radius: 10px;
+    transform: scale(1.05);
+}
+
+.mainbutton{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 10px;
+}
+
+.backHome {
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    font-size: 30px;
+    text-align: center;
+    border-radius: 10px;
+    color: #fff;
+    text-decoration: none;
+    font-family: Header;
+    margin: 5px;
+    background-color: rgba(219, 219, 219, 0.4);
+    transition: all 0.3s ease-in-out; 
+}
+
+.backHome:hover {
+    background-color: rgba(222, 163, 80, 0.4);
+    color: black;
+    border-radius: 10px;
+    transform: scale(1.1);
+}
+
+#clearBtn {
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    font-size: 30px;
+    text-align: center;
+    border-radius: 10px;
+    color: #fff;
+    text-decoration: none;
+    font-family: Header;
+    margin: 5px;
+    background-color: rgba(219, 219, 219, 0.4);
+    transition: all 0.3s ease-in-out; 
+}
+
+#clearBtn:hover {
+    background-color: #fc9f9f;
+    color: black;
+    border-radius: 10px;
+    transform: scale(1.1);
 }

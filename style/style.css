@@ -81,25 +81,17 @@
     display: none;
 }
 
-.suggestions-list {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    max-height: 150px;
-    overflow-y: auto;
-    position: absolute;
-    background: white;
-    width: 100%;
-    z-index: 1000;
-    box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-}
-
 .suggestions-list li {
-    padding: 8px 12px;
+    padding: 10px;
     cursor: pointer;
 }
 
 .suggestions-list li:hover {
-    background-color: #f0f0f0;
+    background-color: #f1f1f1;
 }
 
+#likedCountBadge {
+    display: inline-block;
+    padding: 5px 10px;
+     font-size: 12px;
+}

@@ -21,6 +21,17 @@ document.addEventListener('DOMContentLoaded', () => {
         banner.style.display = 'block';
         countryContainer.style.display = 'none';
     }
+
+    const badge = document.getElementById('likedCountBadge');
+    const likedCountries = JSON.parse(localStorage.getItem('likedCountries')) || [];
+    const count = likedCountries.length;
+
+    if (count > 0) {
+        badge.textContent = count;
+        badge.style.display = 'inline-block';
+    } else {
+        badge.style.display = 'none';
+    }
 });
 
 
@@ -112,9 +123,7 @@ async function fetchCountryData(url) {
 
         showInfoCountry(data)
         fetchCountryPhoto(countryName)
-        showLikeButton()
-        console.log(data);
-        
+        showLikeButton()        
         
     } catch (error) {
         console.error(error);
@@ -133,13 +142,13 @@ function showInfoCountry(data){
 
 
     const elements = `
-    <li id="name">Назва країни: ${common}</li>
+    <li id="name">${common}</li>
     <li id="capital">Столиця: ${capital}</li>
     <li id="region">Регіон: ${region}</li>
     <li id="languages">Мова: ${langList}</li>
     <li id="population">Населення: ${formatPopulation(population)}</li>
-    <li id="flag">Прапор:<br><img class="flag" src='${png}'></li>
-    <li id="map">Геолокація: <a href="${googleMaps}">Відкрити на мапі</a></li>
+    <li id="flag"><img class="flag" src='${png}'></li>
+    <li id="map"><a href="${googleMaps}">Map</a></li>
     `
     countryList.innerHTML = elements
 }
@@ -160,7 +169,6 @@ const weatherURL = `https://api.openweathermap.org/data/2.5/weather?q=${capital}
     try {
         const response = await fetch(weatherURL)
         const weather = await response.json()
-        console.log(weather);
         showInfoWeather(weather)
         
     } catch (error) {
@@ -206,7 +214,7 @@ function showInfoWeather(data){
     const countryList = document.getElementById('countryList')
 
     const weatherElement  = `
-    <li id="weather">Погода: ${temp}°C, ${description}, <img class="iconWeather" src='${img}' alt="Погода"></li>
+    <li id="weather">${temp}°C ${description} <img class="iconWeather" src='${img}' alt="Погода"></li>
     `
     countryList.innerHTML += weatherElement 
 }
@@ -217,7 +225,6 @@ async function fetchCurrencyData(currencyCode) {
     try {
         const response = await fetch(currencyURL)
         const currency = await response.json()
-        console.log(currency);
         showInfoCurrency(currency,currencyCode)
     } catch (error) {
         console.error(error);
@@ -294,6 +301,12 @@ function showLikeButton() {
         if (!likedCountries.some(c => c.name === countryData.name)) {
             likedCountries.push(countryData);
             localStorage.setItem('likedCountries', JSON.stringify(likedCountries));
+
+            const badge = document.getElementById('likedCountBadge');
+            if (badge) {
+                badge.textContent = likedCountries.length;
+                badge.style.display = 'inline-block';
+            }
         } else {
             alert(`${countryData.name} вже є у списку улюблених.`);
         }
