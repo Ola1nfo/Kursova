@@ -46,7 +46,18 @@ search.addEventListener('click', () => {
     const input = document.querySelector('input').value.trim();
     if (!input) {
         const messageContainer = document.getElementById('countryList');
-        messageContainer.innerHTML = `<p class='countryNone' style='display:block'>!!!Будь ласка, введіть назву країни!!!</p>`;
+        messageContainer.innerHTML = `
+            <p class="countryNone">
+                <span class="alert-icon">⚠️</span>
+                <strong>Будь ласка, введіть назву країни!</strong>
+            </p>
+            `;
+            setTimeout(() => {
+                const message = document.querySelector('.countryNone');
+                if (message) {
+                    message.style.display = 'none';
+                }
+                }, 3000);
         const likeButton = document.getElementById('likeButton');        likeButton.style.display = 'none';
         return;
     }
@@ -142,13 +153,13 @@ function showInfoCountry(data){
 
 
     const elements = `
-    <li id="name">${common}</li>
-    <li id="capital">Столиця: ${capital}</li>
-    <li id="region">Регіон: ${region}</li>
-    <li id="languages">Мова: ${langList}</li>
-    <li id="population">Населення: ${formatPopulation(population)}</li>
-    <li id="flag"><img class="flag" src='${png}'></li>
-    <li id="map"><a href="${googleMaps}">Map</a></li>
+    <li id="name" class="header">${common}</li>
+    <li id="capital" class="title">Столиця: ${capital}</li>
+    <li id="region" class="text">Регіон: ${region}</li>
+    <li id="languages" class="text">Мова: ${langList}</li>
+    <li id="population" class="text">Населення: ${formatPopulation(population)}</li>
+    <li id="flag" class="title"><img class="flag" src='${png}'></li>
+    <li id="map" class="btnMap"><a href="${googleMaps}">Map</a></li>
     `
     countryList.innerHTML = elements
 }
@@ -214,7 +225,7 @@ function showInfoWeather(data){
     const countryList = document.getElementById('countryList')
 
     const weatherElement  = `
-    <li id="weather">${temp}°C ${description} <img class="iconWeather" src='${img}' alt="Погода"></li>
+    <li id="weather" class="title weather">${temp}°C ${description} <img class="iconWeather" src='${img}' alt="Погода"></li>
     `
     countryList.innerHTML += weatherElement 
 }
@@ -239,7 +250,7 @@ function showInfoCurrency(data, currencyCode) {
     const rateToUSD = 1 / rateToLocal;
 
     const currencyElement = `
-        <li id="currency">
+        <li id="currency" class="textCurrency">
             Валюта: ${currencyCode}<br>
             1 USD = ${rateToLocal.toFixed(2)} ${currencyCode}<br>
             1 ${currencyCode} = ${rateToUSD.toFixed(2)} USD

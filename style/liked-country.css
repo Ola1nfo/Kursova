@@ -4,14 +4,9 @@
 }
 
 body{
-    width: 100%;
-    margin: 0 auto;
-    position: relative; 
-    background-image: url(../img/bg.jpg);
-    background-position: calc();
-    background-repeat: no-repeat;
-    background-size: cover;
-    color: #fff;
+    font-family: Header;
+    background-color: #f3e6df; 
+    color: #6a442e; 
 }
 
 .container {
@@ -26,7 +21,7 @@ body{
     left: 0;
     right: 0;
     bottom: 0;
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.3);
     z-index: 1;
 }
 
@@ -64,7 +59,7 @@ li{
     display: block;
     margin: 0 auto;
     border-radius: 20px;
-    border: 1px solid #ccc;
+    border: 1px solid #dabca9;
 }
 
 .text{
@@ -101,7 +96,7 @@ li{
 }
 
 .btnMap a{
-    border: 1px solid #ccc;
+    border: 1px solid #dabca9;
     padding: 20px 30px;
     font-size: 25px;
     text-align: center;
@@ -143,7 +138,7 @@ hr{
 }
 
 .delete-btn {
-    border: 1px solid #ccc;
+    border: 1px solid #dabca9;
     padding: 5px 10px;
     font-size: 20px;
     text-align: center;
@@ -172,7 +167,7 @@ hr{
 }
 
 .backHome {
-    border: 1px solid #ccc;
+    border: 1px solid #dabca9;
     padding: 5px 10px;
     font-size: 30px;
     text-align: center;
@@ -193,7 +188,7 @@ hr{
 }
 
 #clearBtn {
-    border: 1px solid #ccc;
+    border: 1px solid #dabca9;
     padding: 5px 10px;
     font-size: 30px;
     text-align: center;

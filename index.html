@@ -9,49 +9,45 @@
 </head>
 <body>
     <div id="infoBanner" class="info-banner">
-    <div class="info-content">
-        <h2>Привіт! Я твій помічник для подорожей</h2>
-        <p>Готовий вирушити в подорож? Введи у пошук країну, яку хочеш відвідати, дізнайся потрібну інформацію та плануй свою наступну подорож!</p>
-        <div id="buttons">
-            <button onclick="showCountryContainer()">Дізнатися про країни</button>
-            <button onclick="window.location.href='./pages/liked-country.html';">Мій список подорожей</button>
-        </div>
-    </div>
-</div>
-
-    <div class="container" id="container">
-    <div class="row justify-content-center mt-5">
-        <div class="col-12 col-md-4">
-            <div class="position-relative">
-                <input 
-                    type="text" 
-                    id="countryInput" 
-                    placeholder="Введіть назву країни" 
-                    class="form-control shadow-sm rounded-pill py-3 px-4" 
-                />
-                <ul id="suggestions" class="suggestions-list list-unstyled position-absolute w-100 mt-1 bg-white shadow rounded">
-                    
-                </ul>
+        <div class="info-content">
+            <h2>Привіт! Я твій помічник для подорожей</h2>
+            <p>Готовий вирушити в подорож? Введи у пошук країну, яку хочеш відвідати, дізнайся потрібну інформацію та плануй свою наступну подорож!</p>
+            <div id="buttons">
+                <button onclick="showCountryContainer()">Дізнатися про країни</button>
+                <button onclick="window.location.href='./pages/liked-country.html';">Мій список подорожей</button>
             </div>
         </div>
+    </div>
 
-        <div class="col-12 col-md-4 mt-3 mt-md-0">
-            <button id="search" type="button" class="btn btn-primary w-100 shadow-lg rounded-pill py-3">
-                <strong>OK</strong>
-            </button>
-        </div>
-
-        <div class="col-12 mt-3">
-            <button type="button" class="btn btn-outline-primary position-relative w-100 py-3">
-                <a href="./pages/liked-country.html" class="text-decoration-none text-primary fw-bold">
-                    Мій список подорожей
+    <div class="container" id="container">
+        <div class="row justify-content-center mt-5">
+            <div class="col-12 mt-3 likeList">
+                <a href="./pages/liked-country.html"><button type="button" class="btn btn-outline-primary position-relative w-100 py-3">Мій список подорожей</button>
+                    <span id="likedCountBadge" class="translate-middle badge rounded-pill">
+                    
+                    </span>
                 </a>
-                <span id="likedCountBadge" class="position-absolute top-0 start-100 translate-middle badge rounded-pill bg-danger">
-                </span>
-            </button>
+            </div>
+            <div class="col-12 col-md-4 mb-3 mb-md-0">
+                <button id="search" type="button" class="btn btn-primary w-100 shadow-lg rounded-pill py-3">
+                    <strong>OK</strong>
+                </button>
+            </div>
+            <div class="col-12 col-md-4 mb-3 mb-md-0">
+                <div class="position-relative">
+                    <input 
+                        type="text" 
+                        id="countryInput" 
+                        placeholder="Введіть назву країни" 
+                        class="form-control shadow-sm rounded-pill py-3 px-4" 
+                    />
+                    <ul id="suggestions" class="suggestions-list list-unstyled position-absolute w-100 mt-1 bg-white shadow rounded">
+                        
+                    </ul>
+                </div>
+            </div>
         </div>
     </div>
-</div>
 
     <ul id="countryList">
 
