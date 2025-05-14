@@ -3,6 +3,27 @@ document.addEventListener('DOMContentLoaded', () => {
     const likedCountries = JSON.parse(localStorage.getItem('likedCountries')) || [];
 
     let currentIndex = 0;
+    const itemsPerPage = 1;
+
+    function renderPagination() {
+        const paginationContainer = document.getElementById('paginationContainer');
+        paginationContainer.innerHTML = '';
+
+        const totalPages = Math.ceil(likedCountries.length / itemsPerPage);
+
+        for (let i = 0; i < totalPages; i++) {
+            const pageBtn = document.createElement('button');
+            pageBtn.textContent = i + 1;
+            pageBtn.className = 'btn btn-sm btn-outline-secondary mx-1' + (i === Math.floor(currentIndex / itemsPerPage) ? ' active' : '');
+            pageBtn.addEventListener('click', () => {
+                currentIndex = i * itemsPerPage;
+                renderCountry(currentIndex);
+                renderPagination();
+            });
+            paginationContainer.appendChild(pageBtn);
+        }
+    }
+
 
     const renderCountry = (index) => {
         list.innerHTML = '';
@@ -81,23 +102,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
         li.appendChild(deleteButton);
         list.appendChild(li);
+        renderPagination();
     };
 
     const controls = document.createElement('div');
+    controls.id = 'navArrows';
     controls.style.margin = '20px';
     controls.style.display = 'flex';
     controls.style.justifyContent = 'center';
     controls.style.gap = '10px';
 
     const prevBtn = document.createElement('button');
-    prevBtn.textContent = '←';
+    prevBtn.innerHTML = '<i class="bi bi-arrow-left-square fs-2"></i>';
+    prevBtn.className = 'arrow-btn me-2';
+
     prevBtn.addEventListener('click', () => {
         currentIndex = (currentIndex - 1 + likedCountries.length) % likedCountries.length;
         renderCountry(currentIndex);
     });
 
     const nextBtn = document.createElement('button');
-    nextBtn.textContent = '→';
+    nextBtn.innerHTML = '<i class="bi bi-arrow-right-square fs-2"></i>';
+    nextBtn.className = 'arrow-btn ms-2';
+
     nextBtn.addEventListener('click', () => {
         currentIndex = (currentIndex + 1) % likedCountries.length;
         renderCountry(currentIndex);
@@ -111,7 +138,20 @@ document.addEventListener('DOMContentLoaded', () => {
     if (clearBtn) {
         clearBtn.addEventListener('click', () => {
             localStorage.removeItem('likedCountries');
-            list.innerHTML = '<p>Список очищено</p>';
+            list.innerHTML = ''; 
+
+            const paginationContainer = document.getElementById('paginationContainer');
+            if (paginationContainer) {
+                paginationContainer.innerHTML = '';
+            }
+            const navArrows = document.getElementById('navArrows');
+            if (navArrows) {
+                navArrows.innerHTML = '';
+                navArrows.classList.add('d-none');
+            }
+
+
+            showCustomAlert('Список улюблених країн очищено');
         });
     }
 
@@ -121,3 +161,17 @@ document.addEventListener('DOMContentLoaded', () => {
         list.innerHTML = '<p>Немає збережених країн</p>';
     }
 });
+
+function showCustomAlert(message, duration = 3000) {
+    const alertBox = document.getElementById('customAlert');
+    const alertText = document.getElementById('customAlertText');
+
+    alertText.textContent = message;
+    alertBox.classList.remove('hidden');
+    alertBox.classList.add('show');
+
+    setTimeout(() => {
+        alertBox.classList.remove('show');
+        alertBox.classList.add('hidden');
+    }, duration);
+}

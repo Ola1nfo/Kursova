@@ -207,3 +207,44 @@ hr{
     border-radius: 10px;
     transform: scale(1.1);
 }
+
+.arrow-btn {
+  background: transparent;
+  border: none;
+  padding: 5px;
+  border-radius: 50%;
+  color: #333;
+  transition: transform 0.2s, color 0.2s;
+  cursor: pointer;
+  margin: -20px;
+}
+
+.arrow-btn:hover {
+  color: #6a442e;
+  transform: scale(1.2);
+}
+
+.custom-alert {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #a16c4a;
+    color: white;
+    padding: 16px 24px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    font-size: 16px;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.custom-alert.show {
+    opacity: 1;
+}
+
+.custom-alert.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
