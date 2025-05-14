@@ -5,14 +5,14 @@ function showCountryContainer() {
     const countryContainer = document.getElementById('container');
     countryContainer.style.display = 'block';
 
-    localStorage.setItem('bannerShown', 'true');
+    sessionStorage.setItem('bannerShown', 'true');
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     const banner = document.getElementById('infoBanner');
     const countryContainer = document.getElementById('container');
-
-    const bannerAlreadyShown = localStorage.getItem('bannerShown');
+    
+    const bannerAlreadyShown = sessionStorage.getItem('bannerShown');
 
     if (bannerAlreadyShown) {
         banner.style.display = 'none';
@@ -33,7 +33,6 @@ document.addEventListener('DOMContentLoaded', () => {
         badge.style.display = 'none';
     }
 });
-
 
 const search = document.getElementById('search')
 
@@ -287,21 +286,34 @@ async function fetchCountryPhoto(countryName) {
 }
 
 function clearCountryInfo() {
-    document.getElementById('name').textContent = '';
-    document.getElementById('capital').textContent = '';
-    document.getElementById('region').textContent = '';
-    document.getElementById('languages').textContent = '';
-    document.getElementById('population').textContent = '';
-    document.getElementById('flag').innerHTML = '';
-    document.getElementById('weather').textContent = '';
-    const icon = document.querySelector('.iconWeather');
-    if (icon) icon.remove();
-    document.getElementById('currency').innerHTML = '';
-    document.getElementById('map').innerHTML = '';
-    document.getElementById('photos').innerHTML = '';
-    document.getElementById('likeButton').style.display = 'none';
-}
+    const fieldsToClear = ['name', 'capital', 'region', 'languages', 'population', 'weather', 'currency'];
+    fieldsToClear.forEach(id => {
+        const el = document.getElementById(id);
+        if (el) el.textContent = '';
+    });
 
+    const flagImg = document.querySelector('#flag img');
+    if (flagImg) flagImg.src = '';
+
+    const weatherIcon = document.querySelector('.iconWeather');
+    if (weatherIcon) weatherIcon.src = '';
+
+    const map = document.getElementById('map');
+    if (map) map.innerHTML = '';
+
+    const photos = document.getElementById('photos');
+    if (photos) photos.style.display = 'none';
+
+    const countryList = document.getElementById('countryList');
+    if (countryList) countryList.innerHTML = '';
+
+    const likeButton = document.getElementById('likeButton');
+    if (likeButton) likeButton.style.display = 'none';
+
+    const input = document.getElementById('countryInput');
+    if (input) input.value = '';
+
+}
 
 function showLikeButton() {
     const likeButton = document.getElementById('likeButton');
@@ -335,9 +347,26 @@ function showLikeButton() {
                 badge.textContent = likedCountries.length;
                 badge.style.display = 'inline-block';
             }
-            clearCountryInfo();
+            clearCountryInfo()
+
         } else {
-            alert(`${countryData.name} вже є у списку улюблених.`);
+            showCustomAlert(`${countryData.name} вже є у списку улюблених.`);
         }
     };
 }
+
+function showCustomAlert(message, duration = 3000) {
+    const alertBox = document.getElementById('customAlert');
+    const alertText = document.getElementById('customAlertText');
+
+    alertText.textContent = message;
+    alertBox.classList.remove('hidden');
+    alertBox.classList.add('show');
+
+    setTimeout(() => {
+        alertBox.classList.remove('show');
+        alertBox.classList.add('hidden');
+        clearCountryInfo()
+    }, duration);
+}
+

@@ -31,13 +31,13 @@ body {
     transition: background-color 0.3s ease;
 }
 
-.btn-primary {
+.btnBrown {
     background-color: #a16c4a; 
     border-color: #a16c4a;
     color: white;
 }
 
-.btn-primary:hover {
+.btnBrown:hover {
     background-color: #8b5e3c; 
     border-color: #8b5e3c;
 }
@@ -67,8 +67,8 @@ body {
 .countryNone {
     width: 400px;
     display: block;
-    background-color: #f3e6df; 
-    color: #6a442e; 
+    background-color: #ffb5b5; 
+    color: #d31313; 
     padding: 15px;
     border: 1px solid #dabca9; 
     border-radius: 8px;
@@ -285,3 +285,29 @@ li{
     border-radius: 10px;
     transform: scale(1.1);
 }
+
+.custom-alert {
+    position: fixed;
+    top: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #a16c4a;
+    color: white;
+    padding: 16px 24px;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    font-size: 16px;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.custom-alert.show {
+    opacity: 1;
+}
+
+.custom-alert.hidden {
+    opacity: 0;
+    pointer-events: none;
+}
+
