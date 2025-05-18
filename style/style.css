@@ -172,8 +172,8 @@ li{
 }
 
 @media (max-width: 768px){
-    .flag{
-        width: 100%;
+    body{
+        width: 700px;
     }
 }
 
