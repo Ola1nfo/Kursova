@@ -46,7 +46,7 @@ search.addEventListener('click', () => {
     if (!input) {
         const messageContainer = document.getElementById('countryList');
         messageContainer.innerHTML = `
-            <p class="countryNone">
+            <p class="countryNone col-12">
                 <span class="alert-icon">⚠️</span>
                 <strong>Будь ласка, введіть назву країни!</strong>
             </p>
@@ -57,7 +57,8 @@ search.addEventListener('click', () => {
                     message.style.display = 'none';
                 }
                 }, 3000);
-        const likeButton = document.getElementById('likeButton');        likeButton.style.display = 'none';
+        const likeButton = document.getElementById('likeButton');        
+        likeButton.style.display = 'none';
         return;
     }
 
@@ -108,9 +109,8 @@ input.addEventListener('input', () => {
     });
 });
 
-
 async function fetchCountryData(url) {
-    document.getElementById('countryList').innerHTML = '<li>Завантаження даних...</li>';
+    document.getElementById('countryList').innerHTML = '<li class="col-12">Завантаження даних...</li>';
 
     try {
         const response = await fetch(url)
@@ -126,17 +126,23 @@ async function fetchCountryData(url) {
         if (currencyCode) {
             fetchCurrencyData(currencyCode);
         }
-        if (data.status === 404 || data.length === 0) {
-            countryList.innerHTML = `<p class='countryNone'>❌ Країну не знайдено. Спробуйте ще раз.</p>`;
-            return;
-        }
-
         showInfoCountry(data)
         fetchCountryPhoto(countryName)
         showLikeButton()        
         
     } catch (error) {
-        console.error(error);
+        countryList.innerHTML = `
+            <p class='countryNone col-12'>
+                <span class="alert-icon">⚠️</span>
+                <strong>Країну не знайдено. Перевір правильність написання назви</strong>
+            </p>`;
+            setTimeout(() => {
+                const message = document.querySelector('.countryNone');
+                if (message) {
+                    message.style.display = 'none';
+                }
+            }, 3000);
+            input.value = '';
     }
 }
 
@@ -152,13 +158,13 @@ function showInfoCountry(data){
 
 
     const elements = `
-    <li id="name" class="header">${common}</li>
-    <li id="capital" class="title">Столиця: ${capital}</li>
-    <li id="region" class="text">Регіон: ${region}</li>
-    <li id="languages" class="text">Мова: ${langList}</li>
-    <li id="population" class="text">Населення: ${formatPopulation(population)}</li>
-    <li id="flag" class="title"><img class="flag" src='${png}'></li>
-    <li id="map" class="btnMap"><a href="${googleMaps}">Map</a></li>
+    <li id="name" class="col-12 header">${common}</li>
+    <li id="capital" class="col-12 title">Столиця: ${capital}</li>
+    <li id="region" class="col-12 text">Регіон: ${region}</li>
+    <li id="languages" class="col-12 text">Мова: ${langList}</li>
+    <li id="population" class="col-12 text">Населення: ${formatPopulation(population)}</li>
+    <li id="flag" class="col-12 title"><img class="flag" src='${png}'></li>
+    <li id="map" class="col-12 btnMap"><a href="${googleMaps}">Map</a></li>
     `
     countryList.innerHTML = elements
 }
@@ -224,7 +230,7 @@ function showInfoWeather(data){
     const countryList = document.getElementById('countryList')
 
     const weatherElement  = `
-    <li id="weather" class="title weather">${temp}°C ${description} <img class="iconWeather" src='${img}' alt="Погода"></li>
+    <li id="weather" class="col-12 title weather">${temp}°C ${description} <img class="col-12 iconWeather" src='${img}' alt="Погода"></li>
     `
     countryList.innerHTML += weatherElement 
 }
@@ -249,7 +255,7 @@ function showInfoCurrency(data, currencyCode) {
     const rateToUSD = 1 / rateToLocal;
 
     const currencyElement = `
-        <li id="currency" class="textCurrency">
+        <li id="currency" class="col-12 textCurrency">
             Валюта: ${currencyCode}<br>
             1 USD = ${rateToLocal.toFixed(2)} ${currencyCode}<br>
             1 ${currencyCode} = ${rateToUSD.toFixed(2)} USD
