@@ -171,6 +171,12 @@ li{
     border: 1px solid #dabca9;
 }
 
+@media (max-width: 768px){
+    .flag{
+        width: 100%;
+    }
+}
+
 .text{
     font-size: 25px;
     font-family: Header;
